@@ -4,7 +4,20 @@ export const typeDefs = gql`
   type Query {
     message: String
     authors: [Author]
+    authorById(id: ID!): Author
+    authorByPhoneNumber(phoneNumber: String!): Author
     books: [Book]
+  }
+
+  type Mutation {
+    appendAuthor(author: NewAuthor!): Author
+  }
+
+  input NewAuthor {
+    firstName: String
+    lastName: String
+    fullName: String
+    phoneNumber: String
   }
 
   type Author {

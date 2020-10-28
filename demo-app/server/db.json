@@ -47,6 +47,12 @@
       "lastName": "Timmons",
       "phoneNumber": "123-123-1234",
       "id": 8
+    },
+    {
+      "firstName": "Sally",
+      "lastName": "Thomas",
+      "phoneNumber": "123-123-1234",
+      "id": 9
     }
   ],
   "books": [

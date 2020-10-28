@@ -1,7 +1,6 @@
-import { freemem } from 'os';
 import { BaseAPI } from './BaseAPI';
 
-import { Author } from '../models/authors';
+import { Author, NewAuthor } from '../models/authors';
 
 export class AuthorsAPI extends BaseAPI {
   constructor(baseUrl: string) {
@@ -14,7 +13,18 @@ export class AuthorsAPI extends BaseAPI {
   }
 
   async oneById(authorId: number) {
-    const authors = await this.get<Author>(this.memberUrl(authorId));
-    return authors;
+    const author = await this.get<Author>(this.memberUrl(authorId));
+    return author;
+  }
+
+  async oneByPhoneNumber(phoneNumber: string) {
+    const authors = await this.get<Author[]>(
+      this.collectionUrl() + '?phoneNumber=' + encodeURIComponent(phoneNumber),
+    );
+    return authors[0];
+  }
+
+  async append(author: NewAuthor) {
+    return await this.post<Author>(this.collectionUrl(), author);
   }
 }

@@ -3,9 +3,8 @@
 
 // const pubSub = new PubSub();
 
-import { Application } from 'express';
 import { ApolloServerContext } from './models/apollo';
-import { Author } from './models/authors';
+import { Author, NewAuthor } from './models/authors';
 import { Book } from './models/books';
 
 export const resolvers = {
@@ -40,9 +39,32 @@ export const resolvers = {
       const authors = await context.dataSources.authors.all();
       return authors;
     },
+    async authorById(_, args: { id: string }, context: ApolloServerContext) {
+      const author = await context.dataSources.authors.oneById(Number(args.id));
+      return author;
+    },
+    async authorByPhoneNumber(
+      _,
+      args: { phoneNumber: string },
+      context: ApolloServerContext,
+    ) {
+      const author = await context.dataSources.authors.oneByPhoneNumber(
+        args.phoneNumber,
+      );
+      return author;
+    },
     async books(_1, _2, context: ApolloServerContext) {
       const books = await context.dataSources.books.all();
       return books;
+    },
+  },
+  Mutation: {
+    appendAuthor(
+      _1,
+      args: { author: NewAuthor },
+      context: ApolloServerContext,
+    ) {
+      return context.dataSources.authors.append(args.author);
     },
   },
 };
