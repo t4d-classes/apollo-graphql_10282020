@@ -4,6 +4,7 @@ import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 
 import { AuthorsAPI } from './apis/AuthorsAPI';
+import { BooksAPI } from './apis/BooksAPI';
 
 const apolloServerConfig = {
   typeDefs,
@@ -17,6 +18,7 @@ const apolloServerConfig = {
   },
   dataSources: () => ({
     authors: new AuthorsAPI(process.env.REST_URL!),
+    books: new BooksAPI(process.env.REST_URL!),
   }),
 };
 

@@ -14,5 +14,9 @@ export const resolvers = {
       const authors = await context.dataSources.authors.all();
       return authors;
     },
+    async books(_1, _2, context: ApolloServerContext) {
+      const books = await context.dataSources.books.all();
+      return books;
+    },
   },
 };
