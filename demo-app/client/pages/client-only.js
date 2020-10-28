@@ -5,6 +5,7 @@ export default function ClientOnlyPage(props) {
   return (
     <App>
       Client Rendered: <Message />
+      
     </App>
   );
 }

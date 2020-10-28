@@ -18,6 +18,7 @@ export const typeDefs = gql`
     id: ID
     title: String
     isbn: String
+    authorId: ID
     category: String
     price: Float
     quantity: Int
