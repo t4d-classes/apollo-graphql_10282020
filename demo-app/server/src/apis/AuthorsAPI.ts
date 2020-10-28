@@ -12,4 +12,9 @@ export class AuthorsAPI extends BaseAPI {
     const authors = await this.get<Author[]>(this.collectionUrl());
     return authors;
   }
+
+  async oneById(authorId: number) {
+    const authors = await this.get<Author>(this.memberUrl(authorId));
+    return authors;
+  }
 }

@@ -11,4 +11,13 @@ export class BooksAPI extends BaseAPI {
     const books = await this.get<Book[]>(this.collectionUrl());
     return books;
   }
+
+  async allByAuthorId(authorId: number) {
+    const books = await this.get<Book[]>(
+      this.collectionUrl() +
+        '?authorId=' +
+        encodeURIComponent(String(authorId)),
+    );
+    return books;
+  }
 }

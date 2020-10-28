@@ -11,7 +11,9 @@ export const typeDefs = gql`
     id: ID
     firstName: String
     lastName: String
+    fullName: String
     phoneNumber: String
+    books: [Book]
   }
 
   type Book {
@@ -19,6 +21,7 @@ export const typeDefs = gql`
     title: String
     isbn: String
     authorId: ID
+    author: Author
     category: String
     price: Float
     quantity: Int
