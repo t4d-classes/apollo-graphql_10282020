@@ -1,0 +1,43 @@
+{
+  "name": "introduction-to-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "run-s build start-exec",
+    "start-exec": "run-p rest web watch",
+    "start-inspect": "run-p web-inspect watch",
+    "start-inspect-brk": "run-p web-inspect-brk watch",
+    "rest": "json-server --port 5050 db.json",
+    "web": "nodemon --ignore 'db.json' dist/index",
+    "web-inspect": "nodemon --ignore 'db.json' --inspect dist/index",
+    "web-inspect-brk": "nodemon --ignore 'db.json' --inspect-brk dist/index",
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-datasource-rest": "^0.9.4",
+    "apollo-server-express": "^2.18.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^15.3.0",
+    "http-proxy": "^1.18.1",
+    "node-fetch": "^2.6.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.8",
+    "@types/http-proxy": "^1.17.4",
+    "@types/node": "^14.14.5",
+    "@types/winston": "^2.4.4",
+    "json-server": "^0.16.2",
+    "nodemon": "^2.0.5",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.0.3"
+  }
+}
