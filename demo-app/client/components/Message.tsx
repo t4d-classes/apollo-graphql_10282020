@@ -2,16 +2,18 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import { ErrorMessage } from './ErrorMessage';
 import { useForm } from '../hooks/useForm';
 
-export type AppQueryAuthor = {
-  id: number;
-  firstName: string;
-  lastName: string;
-};
+import { App } from './__generated__/App';
 
-export type AppQuery = {
-  message: string;
-  authors: AppQueryAuthor[];
-};
+// export type AppQueryAuthor = {
+//   id: number;
+//   firstName: string;
+//   lastName: string;
+// };
+
+// export type AppQuery = {
+//   message: string;
+//   authors: AppQueryAuthor[];
+// };
 
 export const APP_QUERY = gql`
   query App {
@@ -35,7 +37,7 @@ export const APPEND_AUTHOR_MUTATION = gql`
 `;
 
 export function Message() {
-  const { data, loading, error } = useQuery<AppQuery>(APP_QUERY);
+  const { data, loading, error } = useQuery<App>(APP_QUERY);
   const [mutateAppendAuthor] = useMutation(APPEND_AUTHOR_MUTATION);
 
   const [authorForm, change, resetAuthorForm] = useForm({

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { BookViewRow } from './BookViewRow';
+
 export type BookRow = {
   id: number;
   title: string;

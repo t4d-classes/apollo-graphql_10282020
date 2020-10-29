@@ -5,21 +5,10 @@ import { ErrorMessage } from '../components/ErrorMessage';
 
 import { BooksTable, BookRow } from '../components/BooksTable';
 
-export type BookQuery = {
-  id: number;
-  title: string;
-  isbn: string;
-  author: {
-    fullName: string;
-  };
-  category: string;
-  price: number;
-  quantity: number;
-};
-
-export type BooksQuery = {
-  books: BookQuery[];
-};
+import {
+  Books as BooksQuery,
+  Books_books as BooksQuery_Book,
+} from './__generated__/Books';
 
 export const BOOKS_QUERY = gql`
   query Books {
@@ -43,9 +32,9 @@ export const Books = () => {
   if (error) return <ErrorMessage message="Error loading books." />;
   if (loading) return <div>Loading Books...</div>;
 
-  const booksForTable = data.books.map((book: BookQuery) => {
+  const booksForTable = data.books.map((book: BooksQuery_Book) => {
     return {
-      id: book.id,
+      id: Number(book.id),
       title: book.title,
       isbn: book.isbn,
       category: book.category,
