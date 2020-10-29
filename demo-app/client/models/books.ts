@@ -7,3 +7,5 @@ export type Book = {
   price: number;
   quantity: number;
 };
+
+export type NewBook = Omit<Book, 'id'>;
