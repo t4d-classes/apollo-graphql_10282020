@@ -49,7 +49,9 @@ export function Message() {
       variables: {
         author: authorForm,
       },
-      refetchQueries: [{ query: APP_QUERY }],
+      update(cache) {
+        console.dir(cache);
+      },
     });
   };
 
