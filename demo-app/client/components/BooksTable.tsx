@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 import { BooksFragment_books as BooksFragment_Book } from './__generated__/BooksFragment';
 import { BookViewRow } from './BookViewRow';
 
+
 export type BookTableProps = {
   books: BooksFragment_Book[];
 };
