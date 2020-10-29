@@ -1,6 +1,6 @@
 import { BaseAPI } from './BaseAPI';
 
-import { Book } from '../models/books';
+import { Book, NewBook } from '../models/books';
 
 export class BooksAPI extends BaseAPI {
   constructor(baseUrl: string) {
@@ -19,5 +19,9 @@ export class BooksAPI extends BaseAPI {
         encodeURIComponent(String(authorId)),
     );
     return books;
+  }
+
+  async append(book: NewBook) {
+    return await this.post<Book>(this.collectionUrl(), book);
   }
 }

@@ -127,6 +127,15 @@
       "category": "Humor",
       "price": 7.99,
       "quantity": 12
+    },
+    {
+      "title": "A",
+      "isbn": "B",
+      "authorId": "2",
+      "category": "C",
+      "price": 10,
+      "quantity": 3,
+      "id": 9
     }
   ]
 }

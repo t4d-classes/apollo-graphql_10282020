@@ -5,7 +5,7 @@
 
 import { ApolloServerContext } from './models/apollo';
 import { Author, NewAuthor } from './models/authors';
-import { Book } from './models/books';
+import { Book, NewBook } from './models/books';
 
 export const resolvers = {
   Author: {
@@ -59,12 +59,11 @@ export const resolvers = {
     },
   },
   Mutation: {
-    appendAuthor(
-      _1,
-      args: { author: NewAuthor },
-      context: ApolloServerContext,
-    ) {
+    appendAuthor(_, args: { author: NewAuthor }, context: ApolloServerContext) {
       return context.dataSources.authors.append(args.author);
+    },
+    appendBook(_, args: { book: NewBook }, context: ApolloServerContext) {
+      return context.dataSources.books.append(args.book);
     },
   },
 };
