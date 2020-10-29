@@ -1,52 +1,29 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Book } from '../models/books';
 import { ErrorMessage } from '../components/ErrorMessage';
 
-import { BooksTable, BookRow } from '../components/BooksTable';
+import { BooksTable } from '../components/BooksTable';
 
-import {
-  Books as BooksQuery,
-  Books_books as BooksQuery_Book,
-} from './__generated__/Books';
+import { BooksContainer as BooksContainerQuery } from './__generated__/BooksContainer';
 
-export const BOOKS_QUERY = gql`
-  query Books {
-    books {
-      id
-      title
-      isbn
-      author {
-        fullName
-      }
-      category
-      price
-      quantity
-    }
+export const BOOKS_CONTAINER_QUERY = gql`
+  query BooksContainer {
+    ...BooksFragment
   }
+  ${BooksTable.fragments.books}
 `;
 
 export const Books = () => {
-  const { data, loading, error } = useQuery<BooksQuery>(BOOKS_QUERY);
+  const { data, loading, error } = useQuery<BooksContainerQuery>(
+    BOOKS_CONTAINER_QUERY,
+  );
 
   if (error) return <ErrorMessage message="Error loading books." />;
   if (loading) return <div>Loading Books...</div>;
 
-  const booksForTable = data.books.map((book: BooksQuery_Book) => {
-    return {
-      id: Number(book.id),
-      title: book.title,
-      isbn: book.isbn,
-      category: book.category,
-      price: book.price,
-      quantity: book.quantity,
-      authorName: book.author.fullName,
-    } as BookRow;
-  });
-
   return (
     <section>
-      <BooksTable books={booksForTable} />
+      <BooksTable books={data.books} />
       <style jsx>{`
         section {
           padding: 20px;
