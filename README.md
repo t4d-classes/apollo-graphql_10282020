@@ -1,46 +1,41 @@
-# Welcome to the Intermediate Apollo and GraphQL class
+# Budget Tool Apollo 3 App
 
-![DevelopIntelligence Logo](images/developintelligence-logo.jpg "DevelopIntelligence Logo")
+This is a very simple exploration of Apollo 3 Client with the Apollo Server.
 
-Now more than ever, enterprise environments must support their tech & L&D priorities by delivering hyper-focused and targeted learning programs that work for each individual company, flawlessly.
+# How to Run
 
-The largest and most successful enterprise companies trust DevelopIntelligence to advance their tech learning environments. Let us show you what we can do for the success of your programs.
+1. Install Docker Desktop. The application requires Docker to run. For development machines, [Docker Desktop](https://www.docker.com/products/docker-desktop) is recommended.
 
-DevelopIntelligence Delivers.
+2. Clone the repo to your machine.
 
-## Class Information Page
+3. Run the following command from within the cloned folder. The same folder where the `docker-compose.yml` file is located.
 
-[https://www.t4d.io/developintelligence-intermediate-apollo-graphql-10282020](https://www.t4d.io/developintelligence-intermediate-apollo-graphql-10282020)
-
-## Other Resources
-
-The instructor will distribute additional private links during class for downloading courseware, and downloading recordings...
-
-All code in this repository is distributed under the [MIT license](license.txt).
-
-## How to Use the Instructor's Version
-
-The following instructions will help students pull down the instructor's version to resume class where the instructor is.
-
-1. Clone this repository to a new folder. Do not attempt to copy these files over your version or another version which you have cloned. Replace `FOLDER_NAME` with the name of a new folder which will be created when the content is cloned.
-
-```
-git clone https://github.com/t4d-classes/apollo-graphql_10282020.git FOLDER_NAME
+```bash
+docker-compose up --build -d
 ```
 
-2. Change into the folder you cloned into.
+This will build the images and run the containers for the GraphQL server, the REST server, and Redis cache server.
 
-```
-cd FOLDER_NAME
-```
+4. Change into the `client-app` folder. This is the location of the React application which uses the Apollo 3 client.
 
-3. Change into the `demo-app` folder you cloned into.
+5. Run the following commands to view the web page. First, install the NPM packages.
 
-```
-cd demo-app
+```bash
+npm install
 ```
 
-4. Follow the instructions in the `README.md` file in the `demo-app` folder.
+Next, start the React development server.
 
-<br><br>
-All course content and teaching is provided by: [<img src="images/t4dio-logo.gif" alt="T4D.IO Logo">](http://www.t4d.io)
+```bash
+npm start
+```
+
+Your default web browser should open and display the web page. All that you will see is a list of vendors. You can add, modify and delete vendors.
+
+6. To access the GraphQL Playground or the REST API use the following URLs:
+
+REST API: [http://localhost:3050/](http://localhost:3050/)
+
+GraphQL Playground: [http://localhost:4000/](http://localhost:4000/)
+
+Enjoy!

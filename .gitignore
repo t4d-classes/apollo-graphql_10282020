@@ -1,4 +1,7 @@
-.DS_Store
-logs
 node_modules
+/.pnp
+.pnp.js
+logs
+dist
+.DS_Store
 prep
