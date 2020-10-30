@@ -4,27 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: BooksFragment
+// GraphQL fragment: BookEditRowFragment
 // ====================================================
 
-export interface BooksFragment_books_author {
-  __typename: "Author";
-  fullName: string | null;
-}
-
-export interface BooksFragment_books {
+export interface BookEditRowFragment {
   __typename: "Book";
   id: string | null;
   title: string | null;
   isbn: string | null;
   category: string | null;
-  author: BooksFragment_books_author | null;
+  authorId: string | null;
   price: number | null;
   quantity: number | null;
-  authorId: string | null;
-}
-
-export interface BooksFragment {
-  __typename: "Query";
-  books: (BooksFragment_books | null)[] | null;
 }

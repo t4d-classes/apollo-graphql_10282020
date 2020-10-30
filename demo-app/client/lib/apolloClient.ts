@@ -1,16 +1,65 @@
 import { useMemo } from 'react';
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  ApolloLink,
+  split,
+} from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { WebSocketLink } from '@apollo/client/link/ws';
+
+import { editBookId } from './localVars';
 
 let apolloClient;
+
+let link: ApolloLink;
+
+const httpLink = new HttpLink({
+  credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
+  uri: 'http://localhost:5000/graphql', // Server URL (must be absolute)
+});
+
+if (process.browser) {
+  const wsLink = new WebSocketLink({
+    uri: 'ws://localhost:5000/graphql',
+    options: {
+      reconnect: true,
+    },
+  });
+
+  link = split(
+    ({ query }) => {
+      const definition = getMainDefinition(query);
+      return (
+        definition.kind === 'OperationDefinition' &&
+        definition.operation === 'subscription'
+      );
+    },
+    wsLink,
+    httpLink,
+  );
+} else {
+  link = httpLink;
+}
 
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: new HttpLink({
-      credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
-      uri: 'http://localhost:5000/graphql', // Server URL (must be absolute)
+    link,
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            editBookId: {
+              read() {
+                return editBookId();
+              },
+            },
+          },
+        },
+      },
     }),
-    cache: new InMemoryCache(),
   });
 }
 

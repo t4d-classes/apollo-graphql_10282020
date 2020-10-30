@@ -15,7 +15,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "styled-jsx": "^3.3.1"
+    "styled-jsx": "^3.3.1",
+    "subscriptions-transport-ws": "^0.9.18"
   },
   "license": "MIT",
   "devDependencies": {

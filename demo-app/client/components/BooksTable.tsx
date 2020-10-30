@@ -1,14 +1,21 @@
+import React from 'react';
 import { gql } from '@apollo/client';
 
-import { BooksFragment_books as BooksFragment_Book } from './__generated__/BooksFragment';
+import { Book } from '../models/books';
 import { BookViewRow } from './BookViewRow';
-
+import { BookEditRow } from './BookEditRow';
+import { BooksFragment_books as BooksFragment_Book } from './__generated__/BooksFragment';
 
 export type BookTableProps = {
   books: BooksFragment_Book[];
+  editBookId: string;
+  onEdit: (bookId: string) => void;
+  onDelete: (bookId: string) => void;
+  onSave: (book: Book) => void;
+  onCancel: () => void;
 };
 
-export function BooksTable(props: BookTableProps) {
+export function BookTable(props: BookTableProps) {
   return (
     <table>
       <thead>
@@ -23,21 +30,37 @@ export function BooksTable(props: BookTableProps) {
         </tr>
       </thead>
       <tbody>
-        {props.books.map((book) => (
-          <BookViewRow key={book.id} book={book} />
-        ))}
+        {props.books.map((book) =>
+          book.id === props.editBookId ? (
+            <BookEditRow
+              key={book.id}
+              book={book}
+              onSave={props.onSave}
+              onCancel={props.onCancel}
+            />
+          ) : (
+            <BookViewRow
+              key={book.id}
+              book={book}
+              onEdit={props.onEdit}
+              onDelete={props.onDelete}
+            />
+          ),
+        )}
       </tbody>
     </table>
   );
 }
 
-BooksTable.fragments = {
+BookTable.fragments = {
   books: gql`
     fragment BooksFragment on Query {
       books {
-        ...BookFragment
+        ...BookViewRowFragment
+        ...BookEditRowFragment
       }
     }
-    ${BookViewRow.fragments.book}
+    ${BookViewRow.fragments.bookViewRowFragment}
+    ${BookEditRow.fragments.bookEditRowFragment}
   `,
 };

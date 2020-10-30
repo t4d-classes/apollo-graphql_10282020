@@ -1,28 +1,38 @@
 import { gql } from '@apollo/client';
 
-import { BookFragment } from './__generated__/BookFragment';
+import { BookViewRowFragment } from './__generated__/BookViewRowFragment';
 
 export type BookViewRowProps = {
-  book: BookFragment;
+  book: BookViewRowFragment;
+  onEdit: (bookId: string) => void;
+  onDelete: (bookId: string) => void;
 };
 
-export function BookViewRow({ book }: BookViewRowProps) {
+export function BookViewRow(props: BookViewRowProps) {
   return (
     <tr>
-      <td>{book.id}</td>
-      <td>{book.title}</td>
-      <td>{book.isbn}</td>
-      <td>{book.author.fullName}</td>
-      <td>{book.category}</td>
-      <td>{book.price}</td>
-      <td>{book.quantity}</td>
+      <td>{props.book.id}</td>
+      <td>{props.book.title}</td>
+      <td>{props.book.isbn}</td>
+      <td>{props.book.author.fullName}</td>
+      <td>{props.book.category}</td>
+      <td>{props.book.price}</td>
+      <td>{props.book.quantity}</td>
+      <td>
+        <button type="button" onClick={() => props.onEdit(props.book.id)}>
+          Edit
+        </button>
+        <button type="button" onClick={() => props.onDelete(props.book.id)}>
+          Delete
+        </button>
+      </td>
     </tr>
   );
 }
 
 BookViewRow.fragments = {
-  book: gql`
-    fragment BookFragment on Book {
+  bookViewRowFragment: gql`
+    fragment BookViewRowFragment on Book {
       id
       title
       isbn

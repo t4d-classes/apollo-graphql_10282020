@@ -1,7 +1,9 @@
-// import { PubSub } from 'apollo-server-express';
+import { PubSub } from 'apollo-server-express';
 // import fetch from 'node-fetch';
 
-// const pubSub = new PubSub();
+const pubSub = new PubSub();
+
+const BOOK_ADDED = 'BOOK_ADDED';
 
 import { ApolloServerContext } from './models/apollo';
 import { Author, NewAuthor } from './models/authors';
@@ -62,8 +64,22 @@ export const resolvers = {
     appendAuthor(_, args: { author: NewAuthor }, context: ApolloServerContext) {
       return context.dataSources.authors.append(args.author);
     },
-    appendBook(_, args: { book: NewBook }, context: ApolloServerContext) {
-      return context.dataSources.books.append(args.book);
+    async appendBook(_, args: { book: NewBook }, context: ApolloServerContext) {
+      const addedBook = await context.dataSources.books.append(args.book);
+
+      const author = await context.dataSources.authors.oneById(
+        addedBook.authorId,
+      );
+
+      pubSub.publish(BOOK_ADDED, { bookAdded: addedBook });
+
+      return addedBook;
+    },
+    replaceBook(_, args: { book: Book }, context: ApolloServerContext) {
+      return context.dataSources.books.replace(args.book);
+    },
+    removeBook(_, args: { bookId: string }, context: ApolloServerContext) {
+      return context.dataSources.books.remove(Number(args.bookId));
     },
   },
 };

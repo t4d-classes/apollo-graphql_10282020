@@ -1,29 +1,37 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
 import { ErrorMessage } from '../components/ErrorMessage';
 
-import { BooksTable } from '../components/BooksTable';
-
-import { BooksContainer as BooksContainerQuery } from './__generated__/BooksContainer';
-
-export const BOOKS_CONTAINER_QUERY = gql`
-  query BooksContainer {
-    ...BooksFragment
-  }
-  ${BooksTable.fragments.books}
-`;
+import { useBooks } from '../hooks/useBooks';
+import { BookTable } from '../components/BooksTable';
+import { BookForm } from '../components/BookForm';
 
 export const Books = () => {
-  const { data, loading, error } = useQuery<BooksContainerQuery>(
-    BOOKS_CONTAINER_QUERY,
-  );
+  const {
+    books,
+    editBookId,
+    booksLoading,
+    booksError,
+    appendBook,
+    replaceBook,
+    removeBook,
+    editBook,
+    cancelBook,
+  } = useBooks(BookTable.fragments.books);
 
-  if (error) return <ErrorMessage message="Error loading books." />;
-  if (loading) return <div>Loading Books...</div>;
+  if (booksError) return <ErrorMessage message="Error loading books." />;
+  if (booksLoading) return <div>Loading Books...</div>;
 
   return (
     <section>
-      <BooksTable books={data.books} />
+      <BookTable
+        books={books}
+        editBookId={editBookId}
+        onEdit={editBook}
+        onDelete={removeBook}
+        onSave={replaceBook}
+        onCancel={cancelBook}
+      />
+      <BookForm buttonText="Add Book" onSubmitBook={appendBook} />
       <style jsx>{`
         section {
           padding: 20px;

@@ -136,30 +136,12 @@
     },
     {
       "id": 7,
-      "isbn": "111222AAAG",
       "title": "History of People",
-      "authorId": 2,
+      "isbn": "111222AAAG",
+      "authorId": "2",
       "category": "Historical",
       "price": 15.99,
-      "quantity": 56
-    },
-    {
-      "id": 8,
-      "isbn": "111222AAAH",
-      "title": "Crazy People",
-      "authorId": 1,
-      "category": "Humor",
-      "price": 7.99,
-      "quantity": 12
-    },
-    {
-      "title": "A",
-      "isbn": "B",
-      "authorId": "2",
-      "category": "C",
-      "price": 10,
-      "quantity": 3,
-      "id": 9
+      "quantity": 55
     }
   ]
 }

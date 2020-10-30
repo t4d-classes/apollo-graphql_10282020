@@ -12,6 +12,8 @@ export const typeDefs = gql`
   type Mutation {
     appendAuthor(author: NewAuthor!): Author
     appendBook(book: NewBook!): Book
+    replaceBook(book: EditBook!): Book
+    removeBook(bookId: ID!): Book
   }
 
   input NewAuthor {
@@ -31,6 +33,16 @@ export const typeDefs = gql`
   }
 
   input NewBook {
+    title: String
+    isbn: String
+    authorId: ID
+    category: String
+    price: Float
+    quantity: Int
+  }
+
+  input EditBook {
+    id: ID
     title: String
     isbn: String
     authorId: ID
